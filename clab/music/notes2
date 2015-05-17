@@ -1,0 +1,4 @@
+while(*line!='%')
+{
+printf("%s",line);
+fgets(line,LINE_SIZE + 1,(FILE*)music); }  (fscanf(music, "%s", &*line) !="%") (fscanf(music, "%s", &*line) !="%")#define LINE_SIZE 400 

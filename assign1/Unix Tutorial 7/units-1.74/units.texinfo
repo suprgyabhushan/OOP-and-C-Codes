@@ -1,0 +1,1049 @@
+\input texinfo   @c -*-texinfo-*-
+@c %**start of header
+@setfilename units.info
+@settitle Units: A Unit Conversion Program
+@finalout
+@setchapternewpage off
+@set EDITION 1.5
+@set VERSION 1.73
+@c %**end of header
+
+@defcodeindex op
+@syncodeindex op cp
+
+@c noman
+@ifinfo
+@format
+START-INFO-DIR-ENTRY
+* units: (units).	Units conversion.
+END-INFO-DIR-ENTRY
+@end format
+@end ifinfo
+
+@ifinfo
+This file documents the @sc{gnu} @code{units} command for unit conversion. 
+This is edition @value{EDITION} for @code{units} Version @value{VERSION}.
+
+@c end noman
+@c ifman .\"
+Copyright (C) 1996, 1997, 1999, 2000 Free Software Foundation, Inc
+
+Permission is granted to make and distribute verbatim copies of
+this manual provided the copyright notice and this permission notice
+are preserved on all copies.
+
+@c end ifman
+@ignore
+Permission is granted to process this file through Tex and print the
+results, provided the printed document carries copying permission
+notice identical to this one except for the removal of this paragraph
+(this paragraph not being relevant to the printed manual).
+
+@end ignore
+@c ifman .\"
+Permission is granted to copy and distribute modified versions of this
+manual under the conditions for verbatim copying, provided that the entire
+resulting derived work is distributed under the terms of a permission
+notice identical to this one.
+
+Permission is granted to copy and distribute translations of this manual
+into another language, under the above conditions for modified versions.
+@c end ifman
+@end ifinfo
+@c man .TH UNITS 1   "28 May 2000"
+@c man .SH NAME
+@c man units - unit conversion program
+@titlepage
+@title Units Conversion
+@subtitle Edition @value{EDITION} for @code{units} Version @value{VERSION}
+@author Adrian Mariano
+@page
+@vskip 0pt plus 1filll
+Copyright @copyright{} 1996, 1997, 1999, 2000 Free Software Foundation, Inc
+
+Permission is granted to make and distribute verbatim copies of
+this manual provided the copyright notice and this permission notice
+are preserved on all copies.
+
+Permission is granted to copy and distribute modified versions of this
+manual under the conditions for verbatim copying, provided that the entire
+resulting derived work is distributed under the terms of a permission
+notice identical to this one.
+
+Permission is granted to copy and distribute translations of this manual
+into another language, under the above conditions for modified versions,
+except that this permission notice may be stated in a translation approved
+by the Foundation.
+@end titlepage
+
+@iftex
+@headings off
+@everyheading Units Conversion @| @| @thispage
+@end iftex
+
+
+@node Top, , , (dir)
+
+@c noman
+@ifinfo
+This manual describes the @code{units} command for units conversion, and
+how you can use it to convert units from one scale to another.
+
+This is Edition @value{EDITION} of @cite{The Units Conversion Manual}
+for @code{units} Version @value{VERSION}.
+@end ifinfo
+@c end noman
+
+@menu
+* Overview::            What does @code{units} do?
+* Interactive use::     How to use @code{units}.
+* Command line use::    How to use @code{units} noninteractively.
+* Invoking units::      Command line options.
+* Unit expressions::    Forming compound units.
+* Unit definitions::    What units are defined?
+* Defining new units::  How to write your own units definitions.
+* Defining functions::  How to write your own function definitions.
+* Environment vars::    Environment variables used by @code{units}.
+* Readline support::    Unit name completion and editing.
+* Index::               General index
+@end menu
+
+@node Overview, Interactive use, Top, Top
+@chapter Overview of @code{units}
+
+The @code{units} program converts quantities expressed in various scales
+to their equivalents in other scales.  The @code{units} program can
+handle multiplicative scale changes as well as nonlinear
+conversions such as Fahrenheit to Celsius.
+
+The units are defined in an external data file.  You can use the
+extensive data file that comes with this program, or you can 
+provide your own data file to suit your needs.  
+
+You can use the program interactively 
+with prompts, or you can use it
+from the command line.  
+
+@node Interactive use, Command line use, Overview, Top
+@chapter Interacting with @code{units}
+@cindex interactive use
+
+To invoke units for interactive use, type @kbd{units} at your shell
+prompt.  The program will print something like this:
+
+@example
+@group
+    2131 units, 53 prefixes, 24 functions
+    
+    You have:
+@end group
+@end example
+
+@noindent
+At the @samp{You have:} prompt, type the quantity and units that
+you are converting @emph{from}.  For example, if you want to convert ten
+meters to feet, type @kbd{10 meters}.  Next, @code{units} will print
+@samp{You want:}.  You should type the type of units you want to convert
+@emph{to}.  To convert to feet, you would type @kbd{feet}.  
+
+The answer will be displayed in two ways.  The first line of output,
+which is marked with a @samp{*} to indicate multiplication, 
+gives the result of the conversion you have asked for.  The second line
+of output, which is marked with a @samp{/} to indicate division, gives
+the inverse of the conversion factor.  If you convert 10 meters to feet,
+@code{units} will print
+
+@example
+@group
+        * 32.808399
+        / 0.03048
+@end group
+@end example
+
+@noindent
+which tells you that 10 meters equals about 32.8 feet.  
+The second number gives the conversion in the opposite direction. 
+In this case, it tells you that 1 foot is equal to about  
+0.03 dekameters since the dekameter is 10 meters.  
+It also tells you that 1/32.8 is about .03.    
+
+The @code{units} program prints the inverse because sometimes it is a
+more convenient number.  In the example above, for example, the inverse
+value is an exact conversion: a foot is exactly .03048 dekameters.  
+But the number given the other direction is inexact.  
+
+If you try to convert grains to pounds, you will see the following:
+
+@example
+@group
+    You have: grains
+    You want: pounds
+            * 0.00014285714
+            / 7000
+@end group
+@end example
+
+@noindent
+From the second line of the output you can immediately see that a grain
+is equal to a seven thousandth of a pound.  This is not so obvious from
+the first line of the output. 
+If you find  the output format  confusing, try using the
+@samp{--verbose} option:
+@cindex verbose output
+
+@example
+@group
+    You have: grain
+    You want: aeginamina
+            grain = 0.00010416667 aeginamina
+            grain = (1 / 9600) aeginamina
+@end group
+@end example
+
+If you request a conversion between units which measure reciprocal
+dimensions, then @code{units} will display the conversion results with an extra
+note indicating that reciprocal conversion has been done:
+@cindex reciprocal conversion
+
+@example
+@group
+    You have: 6 ohms
+    You want: siemens
+            reciprocal conversion
+            * 0.16666667
+            / 6
+@end group
+@end example
+
+Reciprocal conversion can be suppressed by using the @samp{--strict} option.
+As usual, use  
+the @samp{--verbose} option to get more comprehensible output:
+@cindex verbose output
+@cindex strict conversion
+
+@example
+@group
+    You have: tex
+    You want: typp
+            reciprocal conversion
+            1 / tex = 496.05465 typp
+            1 / tex = (1 / 0.0020159069) typp
+
+    You have: 20 mph
+    You want: sec/mile
+            reciprocal conversion
+            1 / 20 mph = 180 sec/mile
+            1 / 20 mph = (1 / 0.0055555556) sec/mile
+@end group
+@end example
+
+If you enter incompatible unit types, the @code{units} program will
+print a message indicating that the units are not conformable and
+it will display the reduced form for each unit:
+@cindex incompatible units
+@cindex non-conformable units
+
+@example
+@group
+    You have: ergs/hour
+    You want: fathoms kg^2 / day 
+    conformability error
+            2.7777778e-11 kg m^2 / sec^3
+            2.1166667e-05 kg^2 m / sec
+@end group
+@end example
+
+If you only want to find the reduced form or definition of a unit,
+simply press return at the @samp{You want:} prompt.  Here is an example:
+
+@example
+@group
+    You have: jansky
+    You want: 
+            Definition: fluxunit = 1e-26 W/m^2 Hz = 1e-26 kg / s^2
+@end group
+@end example
+
+@noindent
+The output from @code{units} indicates that the jansky is defined to be
+equal to a fluxunit which in turn is defined to be a certain combination
+of watts, meters, and hertz.  The fully reduced (and in this case
+somewhat more cryptic) form appears on the far right.  
+
+If you want a list of options you can type @kbd{?} at the 
+@samp{You want:} prompt.  The program will display a list of named
+units which are conformable with the unit that you entered at
+the @samp{You have:} prompt above.  Note that conformable unit
+combinations will not appear on this list.  
+
+Typing @kbd{help} at either prompt displays a short help message.  
+You can also type @kbd{help} followed by a unit name.  This will
+invoke a pager on the units data base at the point where that unit
+is defined.  You can read the definition and comments that may
+give more details or historical information about the unit. 
+
+
+@node Command line use, Unit expressions, Interactive use, Top
+@chapter Using @code{units} non-interactively
+@cindex command line unit conversion
+@cindex non-interactive unit conversion
+
+The @code{units} program can perform units conversions non-interactively
+from the command line.  To do this, type the command, type the
+original units expression, and type the new units you want. 
+You will probably need to protect the units expressions from
+interpretation by the shell using single quote characters. 
+
+If you type
+
+@example
+    units '2 liters' 'quarts'
+@end example
+@noindent
+then @code{units} will print
+
+@example
+@group
+        * 2.1133764
+        / 0.47317647
+@end group
+@end example
+@noindent
+and then exit.
+The output tells you that 2 liters is about 2.1 quarts, or alternatively that
+a quart is about 0.47 times 2 liters.  
+
+If the conversion is successful, then @code{units} will return success (0)
+to the calling environment.  If @code{units} is given non-conformable
+units to convert, it will print a message giving the reduced form of
+each unit and it will return failure (nonzero) to the calling environment. 
+
+When @code{units} is invoked with only one argument, it will print out
+the definition of the specified unit.  It will return failure if the
+unit is not defined and success if the unit is defined.
+
+
+@node Unit expressions, Invoking units, Command line use, Top
+@comment  node-name,  next,  previous,  up
+@chapter Unit expressions
+@cindex unit expressions
+
+In order to enter more complicated units or fractions, 
+you will need to use operations such as powers, products and division.  
+Powers of units can be specified using the @samp{^} character as shown in
+the following example, or by simple concatenation: @samp{cm3} is equivalent to 
+@samp{cm^3}.
+If the exponent is more than one digit, the @samp{^} is required.
+@cindex powers
+@cindex products
+
+@example
+@group
+    You have: cm^3
+    You want: gallons
+            * 0.00026417205
+            / 3785.4118
+
+    You have: arabicfoot-arabictradepound-force
+    You want: ft lbf  
+            * 0.7296
+            / 1.370614
+@end group
+@end example
+
+Multiplication of units can be specified by using spaces, a hyphen
+(@samp{-}) or an asterisk (@samp{*}).  Division of units is indicated 
+by the slash (@samp{/}) or by @samp{per}.  
+@cindex multiplication of units
+@cindex division of units
+
+@example
+@group
+    You have: furlongs per fortnight
+    You want: m/s  
+            * 0.00016630986
+            / 6012.8727
+@end group
+@end example
+
+Multiplication has a higher precedence than division and is evaluated
+left to right, so 
+@samp{m/s * s/day} is equivalent to @samp{m / s s day} and has dimensions of
+length per time cubed.  Similarly, @samp{1/2 meter} refers to a unit of reciprocal length
+equivalent to .5/meter, which is
+probably not what you would intend if you entered that expression. 
+You can indicate division of numbers
+with the vertical dash (@samp{|}).  This operator has very high
+precedence,  higher even than the exponent operator. 
+@cindex fractions
+@cindex division of numbers
+
+@example
+@group
+    You have: 1|2 inch
+    You want: cm
+            * 1.27
+            / 0.78740157
+@end group
+@end example
+
+@noindent
+Parentheses can be used for grouping as desired.  
+
+@example
+@group
+    You have: (1/2) kg / (kg/meter)
+    You want: league
+            * 0.00010356166
+            / 9656.0833
+@end group
+@end example
+
+Prefixes are defined separately from base units.  In order to get
+centimeters, the units database defines @samp{centi-} and @samp{c-} as
+prefixes.  Prefixes can appear alone with no unit following them.  
+An exponent applies only to the immediately preceding unit and its
+prefix so that @samp{cm^3} or @samp{centimeter^3} refer to cubic centimeters 
+but @samp{centi-meter^3} refers to hundredths of cubic meters.  Only one
+prefix is permitted per unit, so @samp{micromicrofarad} will fail, but
+@samp{micro-microfarad} will work.  
+
+For @code{units}, numbers are just another kind of unit.  They can
+appear as many times as you like and in any order in a unit expression.
+For example, to find the volume of a box which is 2 ft by 3 ft by 12 ft
+in steres, you could do the following:
+
+@example
+@group
+    You have: 2 ft 3 ft 12 ft
+    You want: stere
+            * 2.038813
+            / 0.49048148
+    
+    You have: $ 5 / yard
+    You want: cents / inch
+            * 13.888889
+            / 0.072
+@end group
+@end example
+@noindent
+And the second example shows how the dollar sign in the units conversion
+can precede the five.  Be careful:  @code{units} will interpret
+@samp{$5} with no space as equivalent to dollars^5.  
+
+Outside of the SI system, it is often desirable to add values of
+different units together.  Sums of conformable units are written with
+the @samp{+} character. 
+@cindex sums of units
+@cindex addition of units
+
+@example
+@group
+    You have: 2 hours + 23 minutes + 32 seconds
+    You want: seconds
+            * 8612
+            / 0.00011611705
+@end group
+    
+@group
+    You have: 12 ft + 3 in
+    You want: cm
+            * 373.38
+            / 0.0026782366
+@end group
+
+@group
+    You have: 2 btu + 450 ft-lbf
+    You want: btu
+            * 2.5782804
+            / 0.38785542
+@end group
+@end example
+
+@noindent
+The expressions which are added together must reduce to identical
+expressions in primitive units, or an error message will be displayed:
+
+@example
+@group
+    You have: 12 printerspoint + 4 heredium
+                                          ^
+    Illegal sum of non-conformable units
+@end group
+@end example
+
+@noindent
+Because @samp{-} is used for products, it cannot also be used to form
+differences of units.  If a @samp{-} appears after @samp{(} or after
+@samp{+} then it will act as a negation operator.  So you can compute 20
+degrees minus 12 minutes by entering @samp{20 degrees + -12 arcmin}.
+The @samp{+} character is sometimes used in exponents like
+@samp{3.43e+8}.  This leads to an ambiguity in an expression like
+@samp{3e+2 yC}.  The unit @samp{e} is a small unit of charge, so this
+can be regarded as equivalent to @samp{(3e+2) yC} or @samp{(3 e)+(2 yC)}.  
+This ambiguity is resolved by always interpreting @samp{+} as part
+of an exponent if possible.
+
+@cindex functions, built in
+Several built in functions are provided: @samp{sin}, @samp{cos},
+@samp{tan}, @samp{ln}, @samp{log}, @samp{log2}, @samp{exp}, @samp{acos},
+@samp{atan} and @samp{asin}.  The @samp{sin}, @samp{cos}, and @samp{tan}
+functions require either a dimensionless argument or an argument with
+dimensions of angle.  
+
+@example
+@group
+    You have: sin(30 degrees)
+    You want: 
+            Definition: 0.5
+
+    You have: sin(pi/2)
+    You want:  
+            Definition: 1
+
+    You have: sin(3 kg)
+                      ^
+    Unit not dimensionless
+@end group
+@end example
+
+@noindent
+The other functions on the list require dimensionless arguments.  The
+inverse trigonometric functions return arguments with dimensions of
+angle.
+
+@cindex roots
+@cindex square roots
+If you wish to take roots of units, you may use the @samp{sqrt} or
+@samp{cuberoot} functions.  These functions require that the argument
+have the appropriate root.  Higher roots can  be obtained by using
+fractional exponents:
+
+@example
+@group
+    You have: sqrt(acre)
+    You want: feet
+            * 208.71074
+            / 0.0047913202
+    
+    You have: (400 W/m^2 / stefanboltzmann)^(1/4)
+    You have:
+            Definition: 289.80882 K
+    
+    You have: cuberoot(hectare)
+                              ^
+    Unit not a root
+@end group
+@end example
+
+@cindex temperature conversions
+Unit functions can be used for nonlinear unit conversions such as
+Fahrenheit to Celsius:
+
+@example
+@group
+    You have: tempF(45)
+    You want: tempC
+            7.2222222
+@end group
+@end example
+
+In this case, think of @samp{tempF(x)} not as a function but as a
+notation which indicates that @samp{x} should have units of @samp{tempF}
+attached to it.  @xref{Defining functions}.  
+
+@node Invoking units, Unit definitions, Unit expressions, Top
+@chapter Invoking @code{units}
+@cindex invoking units
+@cindex command line options
+
+You invoke @code{units} like this:
+
+@example
+    units @var{options} [@var{from-unit} [@var{to-unit}]]
+@end example
+@noindent
+If the @var{from-unit} and @var{to-unit} are omitted, then the program
+will use interactive prompts to determine which conversions to perform.
+@xref{Interactive use}.
+If both @var{from-unit} and @var{to-unit} are given, @code{units} will
+print the result of that single conversion and then exit.  
+If only @var{from-unit} appears on the command line, @code{units} will
+display the definition of that unit and exit.  
+Units specified on the command line will need
+to be quoted to protect them from shell interpretation and to group
+them into two arguments.  @xref{Command line use}.
+
+The following options allow you to read in an alternative units file,
+check your units file, or change the output format:
+
+@table @samp
+@item -c
+@itemx --check
+@opindex -c @r{(option for} @code{units}@r{)}
+@opindex --check @r{(option for} @code{units}@r{)}
+Check that all units and prefixes defined in the units data file reduce
+to primitive units.  Print a list of all units that
+cannot be reduced.  Also display some other diagnostics about 
+suspicious definitions in the units data file.  
+
+@item --check-verbose
+@opindex --check-verbose @r{(option for} @code{units}@r{)}
+Like the @samp{-check} option, this option prints a list of units that
+cannot be reduced.  But to help find unit  definitions that cause
+endless loops, 
+it lists the units as they are checked.  
+If @code{units} hangs, then the last unit to be printed has a bad
+definition.
+
+@item -o format
+@itemx --output-format format
+@opindex -o @r{(option for} @code{units}@r{)}
+@opindex --output-format @r{(option for} @code{units}@r{)}
+Use the specified format for numeric output.  Format is the same
+as that for the printf function in the ANSI C standard. 
+For example, if you want more precision you might use @samp{-o %.15g}. 
+
+@item -f filename
+@itemx --file filename
+@opindex -f @r{(option for} @code{units}@r{)}
+@opindex --file @r{(option for} @code{units}@r{)}
+Use filename as the units data file rather than the default units
+data file.  This option overrides the @code{UNITSFILE} environment
+variable.  
+
+@item -h
+@itemx --help
+@opindex -h @r{(option for} @code{units}@r{)}
+@opindex --help @r{(option for} @code{units}@r{)}
+Print out a summary of the options for @code{units}.  
+
+@item -q
+@itemx --quiet
+@itemx --silent
+@opindex -q @r{(option for} @code{units}@r{)}
+@opindex --quiet @r{(option for} @code{units}@r{)}
+@opindex --silent @r{(option for} @code{units}@r{)}
+Suppress prompting of the user for units and the display of statistics
+about the number of units loaded.
+
+@item -s
+@itemx --strict
+@opindex -s @r{(option for} @code{units}@r{)}
+@opindex --strict @r{(option for} @code{units}@r{)}
+Suppress conversion of units to their reciprocal units.
+
+@item -v
+@itemx --verbose
+@opindex -v @r{(option for} @code{units}@r{)}
+@opindex --verbose @r{(option for} @code{units}@r{)}
+Give slightly more verbose output when converting units.  When combined
+with the @samp{-c} option this gives the same effect as
+@samp{--check-verbose}. 
+
+@item -V
+@itemx --version
+@opindex -V @r{(option for} @code{units}@r{)}
+@opindex --version @r{(option for} @code{units}@r{)}
+Print program version number, tell whether the readline library
+has been included, and give the location of the default units
+data file. 
+
+@end table
+
+
+@node Unit definitions, Defining new units, Invoking units, Top
+@chapter Unit definitions
+@cindex unit definitions
+
+The conversion information is read from a units data file which 
+is called @file{units.dat} and is probably located in
+the @file{/usr/local/share} directory.  
+If you invoke @code{units} with the @samp{-V} option, it will print
+the location of this file. 
+The default
+file includes definitions for all familiar units, abbreviations and
+metric prefixes.  It also includes many obscure or archaic units.  
+
+Many constants of nature are defined, including these:
+@c noman
+@example
+pi          @r{ratio of circumference to diameter}
+c           @r{speed of light}
+e           @r{charge on an electron}
+force       @r{acceleration of gravity}
+mole        @r{Avogadro's number}
+water       @r{pressure per unit height of water}
+Hg          @r{pressure per unit height of mercury}
+au          @r{astronomical unit}
+k           @r{Boltzman's constant}
+mu0         @r{permeability of vacuum}
+epsilon0    @r{permitivity of vacuum}
+G           @r{Gravitational constant}
+mach        @r{speed of sound}
+@end example
+
+@noindent
+@c end noman
+@c man .in +4m
+@c man .ta 10m 
+@c man .nf
+@c man 
+@c man pi	ratio of circumference to diameter
+@c man c	speed of light
+@c man e	charge on an electron
+@c man force	acceleration of gravity
+@c man mole	Avogadro's number
+@c man water	pressure per unit height of water
+@c man Hg	pressure per unit height of mercury
+@c man au	astronomical unit
+@c man k	Boltzman's constant
+@c man mu0	permeability of vacuum
+@c man epsilon0	permitivity of vacuum
+@c man G	gravitational constant
+@c man mach	speed of sound
+@c man 
+@c man .fi
+@c man .in -4m
+The database includes atomic masses for all of the elements and numerous
+other constants.  Also included are the densities of various ingredients
+used in baking so that @samp{2 cups flour_sifted} can be converted 
+to @samp{grams}.  This is not an exhaustive list.  Consult the units
+data file to see the complete list, or to see the definitions that are
+used.
+
+The unit @samp{pound} is a unit of mass.  To get force, multiply by the
+force conversion unit @samp{force} or use the shorthand @samp{lbf}.
+(Note that @samp{g} is already taken as the standard abbreviation for
+the gram.)  The unit @samp{ounce} is also a unit of mass.  The fluid
+ounce is @samp{fluidounce} or @samp{floz}.  British capacity units that
+differ from their US counterparts, such as the British Imperial gallon,
+are prefixed with @samp{br}.  Currency is prefixed with its country
+name: @samp{belgiumfranc}, @samp{britainpound}.
+
+The US Survey foot,
+yard, and mile can be obtained by using the @samp{US} prefix. 
+These units differ slightly from the international length units.  
+They were in general use until 1959, and are still used
+for geographic surveys.
+The acre is officially defined in terms of the US Survey foot.
+If you want an acre 
+defined according to the international foot, use @samp{intacre}.  The 
+difference between these units is 
+about 4 parts per million. 
+The British also used a slightly different length measure before 1959.  
+These can be obtained with the prefix @samp{UK}. 
+
+When searching for
+a unit, if the specified string does not appear exactly as a unit
+name, then the @code{units} program will try to remove a 
+trailing @samp{s} or a trailing @samp{es}.  If that fails, @code{units}
+will check for a prefix.  
+All of the standard metric prefixes are defined.
+
+To find out what units and prefixes are available, read the standard
+units data file.
+
+@node Defining new units, Defining functions, Unit definitions, Top
+@chapter Defining new units
+@cindex defining units
+@cindex units, redefinition of
+@cindex changing units definitions
+
+All of the units and prefixes that @code{units} can convert are defined
+in the units data file.  If you want to add your own units, you can
+supply your own file.
+
+A unit is specified on a single line by giving its name and an
+equivalence.  Comments start with a @samp{#} character, which can appear
+anywhere in a line.  The backslash character (@samp{\})
+acts as a continuation
+character if it appears as the last character on a line, making it
+possible to spread definitions out over several lines if desired.
+
+Unit names must not contain any of the operator characters @samp{+},
+@samp{-}, @samp{*}, @samp{/}, @samp{|}, @samp{^} or the parentheses.
+They cannot begin with a digit or a decimal point (@samp{.}), nor can
+they end with a digit (except for zero).  
+Be careful to define
+new units in terms of old ones so that a reduction leads to the
+primitive units, which are marked with @samp{!} characters.  
+When adding new units, be sure to use the @samp{-c} option to check that
+the new units reduce properly.  If you define any units which contain
+@samp{+} characters, carefully check them because the @samp{-c} option
+will not catch non-conformable sums.  
+If you create a loop in the units definitions, then @code{units} will
+hang when invoked with the @samp{-c} options.  You will need to 
+use the @samp{--check-verbose} option which prints out each unit as it
+checks them.  The program will still hang, but the last unit printed
+will be the unit which caused the infinite loop. 
+
+Here is an example of a short units file that defines some basic
+units:  
+@c noman
+
+@example
+@group
+m       !               # The meter is a primitive unit
+sec     !               # The second is a primitive unit
+micro-  1e-6            # Define a prefix
+minute  60 sec          # A minute is 60 seconds
+hour    60 min          # An hour is 60 minutes
+inch    0.0254 m        # Inch defined in terms of meters
+ft      12 inches       # The foot defined in terms of inches
+mile    5280 ft         # And the mile
+@end group
+@end example
+
+@c end noman
+@c man .in +2m
+@c man .ta 9m +10m
+@c man .nf
+@c man 
+@c man m	!	# The meter is a primitive unit
+@c man sec	!	# The second is a primitive unit
+@c man micro-	1e-6	# Define a prefix
+@c man minute	60 sec	# A minute is 60 seconds
+@c man hour	60 min	# An hour is 60 minutes
+@c man inch	0.0254 m	# Inch defined in terms of meters
+@c man ft	12 inches	# The foot defined in terms of inches
+@c man mile	5280 ft	# And the mile
+@c man 
+@c man .fi
+@c man .in -2m
+@noindent
+A unit which ends with a @samp{-} character is a prefix.  If a prefix
+definition contains any @samp{/} characters, be sure they are protected
+by parentheses.  If you define @samp{half- 1/2} then @samp{halfmeter}
+would be equivalent to @samp{1 / 2 meter}.
+
+@node Defining functions, Environment vars, Defining new units, Top
+@chapter Defining functions
+@cindex defining functions
+@cindex functions, redefinition of
+@cindex changing function definitions
+@cindex nonlinear unit conversions
+Functions can be useful for performing nonlinear unit conversions.  For
+example, temperature conversions between the Fahrenheit and Celsius
+scales cannot be done by simply multiplying by conversions factors.  
+
+When you give a linear unit definition such as @samp{inch 2.54 cm} you
+are providing information that @code{units} uses to convert values in
+inches into primitive units of meters.  For nonlinear units, you must
+provide a functional definition that provides the same information.  
+
+When using a function to perform a conversion, the function is best
+regarded as a way of adding units to a number, much the same way that
+writing a linear unit name after a number adds units to that number.
+But internally, the unit function is defined as a function which
+converts to other units in the data file, so that an eventual conversion
+to primitive units is possible.  It is also necessary to specify the
+inverse conversion from some linear units to the new units.  
+
+Here is an example function definition:
+
+@example
+@group
+tempF(x) [1;K] (x+(-32)) degF + stdtemp ; (tempF+(-stdtemp))/degF + 32
+@end group
+@end example
+
+@noindent
+A function definition begins with the function name followed immediately
+(with no spaces) by a @samp{(} character.  In parentheses is the name of
+the parameter.  Next is an optional specification of what units this
+function requires.  In the example above, the @samp{tempF} function
+requires an input argument conformable with @samp{1}.  The inverse
+function requires an input argument conformable with @samp{K}.  The sole
+purpose of the expression in brackets to enable @code{units} to perform
+error checking on function arguments.
+
+Next the function definition appears.  In the example above, the
+@samp{tempF} function is defined by
+
+@example
+@group
+    tempF(x) = (x+(-32)) degF + stdtemp
+@end group
+@end example
+
+@noindent
+This means that the @samp{tempF} function regards its
+argument as a temperature in Fahrenheit and converts it to an
+absolute temperature.
+
+In order to make conversions to Fahrenheit possible, you must also
+specify the inverse.  The inverse will be @samp{x(tempF)} and
+its definition appears after a @samp{;} character.  
+In our example, the inverse is
+
+@example
+@group
+    x(tempF) = (tempF+(-stdtemp))/degF + 32
+@end group
+@end example
+
+@noindent
+This inverse definition takes an absolute temperature as its argument
+and converts it to the Fahrenheit temperature.  The inverse can be
+omitted by leaving out the @samp{;} character, but then conversions to 
+the unit will be impossible. 
+
+If you wish to make synonyms for functions, you still need to define
+both the forward and inverse functions.  Inverse functions can be
+obtained using the @samp{~} operator.  So to create a synonym 
+for @samp{tempF} you could do
+
+@example
+@group
+    fahrenheit(x) [1;K] tempF(x); ~tempF(fahrenheit)
+@end group
+@end example
+
+@cindex linear interpolation
+@cindex functions, piecewise linear
+Sometimes you may be interested in a piecewise linear unit such as wire
+gauge.  Piecewise linear functions can be defined by specifying
+the function's value on a list of points.
+The function will be evaluated using linear interpolation.
+A partial definition of zinc gauge is
+
+@example
+@group
+    zincgauge[in] 1 0.002, 10 0.02, 15 0.04, 19 0.06, 23 0.1
+@end group
+@end example
+
+@noindent
+In this example, @samp{zincgauge} is the name of the piecewise linear
+function.  The definition of such a function is indicated by the
+embedded @samp{[} character.  After the bracket, you should indicate the
+units to be attached to this function.  No spaces can appear before the
+@samp{]} character, so a definition like @samp{foo[kg meters]} is
+illegal; instead write @samp{foo[kg*meters]}.  The definition of the
+function consists of a list of pairs optionally separated by commas.  The
+first item in each pair is the function argument; the second item is the
+value of the function at that argument (in the units specified in brackets).
+In this example,
+we define @samp{zincgauge} at five points.  For example, we set
+@samp{zincgauge(1)} equal to @samp{0.002 in}.  Definitions line this
+may be  more readable  if written using  continuation characters as
+@c noman
+
+@example
+@group
+    zincgauge[in] \
+         1 0.002  \
+        10 0.02   \
+        15 0.04   \
+        19 0.06   \
+        23 0.1
+@end group
+@end example
+
+@c end noman
+@c man .in +5m
+@c man .ta 3m +3m 
+@c man .nf
+@c man 
+@c man zincgauge[in]	 \\
+@c man 	1	0.002 \\
+@c man 	10	0.02 \\
+@c man 	15	0.04 \\
+@c man 	19	0.06 \\
+@c man 	23	0.1
+@c man .fi
+@c man .in -2m
+
+With the preceeding definition, the following conversion can be
+performed:
+
+@example
+@group
+    You have: zincgauge(10)
+    You want: in
+        * 0.02
+        / 50
+    You have: .01 inch
+    You want: zincgauge
+        5
+@end group 
+@end example
+
+If you define a piecewise linear function that is not strictly
+monotonic, then the inverse will not be well defined.  If the inverse is
+requested for such a function, @code{units} will return the smallest
+inverse.
+
+@node Environment vars, Readline support, Defining functions, Top
+@chapter Environment variables
+@cindex environment variables
+
+@noindent
+The @code{units} programs uses the following environment variables. 
+
+@table @samp
+@item PAGER
+@cindex PAGER environment variable
+Specifies the pager to use for help and for displaying the conformable
+units.  The help function browses the units database and calls
+the pager using the @code{+nn} syntax for specifying a line number.  The
+default pager is @code{more}, but @code{less}, @code{emacs}, or
+@code{vi} are possible alternatives.  
+
+@item UNITSFILE
+@cindex UNITSFILE environment variable
+Specifies the units database file to use (instead of the default). This
+will be overridden by the @samp{-f} option.  
+
+@end table
+
+@node Readline support, , Environment vars, Top
+@chapter Readline support
+@cindex readline, use with @code{units}
+
+If the @code{readline} package has been compiled in, then when
+@code{units} is used interactively, numerous command line editing
+features are available.  To check if your version of @code{units}
+includes the readline, invoke the program with the @samp{--version}
+option.
+
+For complete information about readline, consult the documentation for
+the readline package.  Without any configuration, @code{units} will
+allow editing in the style of emacs.  Of particular use with
+@code{units} are the completion commands.  
+
+If you type a few characters and then hit @samp{ESC} followed by the
+@kbd{?} key then @code{units} will display a list of all the units which
+start with the characters typed.  For example, if you type @kbd{metr} and
+then request completion, you will see something like this:
+@cindex unit name completion
+
+@example
+@group
+You have: metr
+metre             metriccup         metrichorsepower  metrictenth
+metretes          metricfifth       metricounce       metricton
+metriccarat       metricgrain       metricquart       metricyarncount
+You have: metr
+@end group
+@end example
+
+@noindent
+If there is a unique way to complete a unitname, you can hit the tab key
+and @code{units} will provide the rest of the unit name.  If @code{units}
+beeps, it means that there is no unique completion.  Pressing the tab
+key a second time will print the list of all completions.  
+
+@page
+@node Index, , , Top
+@unnumbered Index
+
+@printindex cp
+@contents
+@bye
+
+@c man .SH FILES
+@c man @DATAFILE@ - the standard units data file
+@c man .SH AUTHOR
+@c man Adrian Mariano (adrian@cam.cornell.edu)

@@ -1,0 +1,5 @@
+1.make loop in arguments in i and separate even odd and prime by mod function.
+2.define x and y differently.
+3.reading files by no. of lines.till it reaches the line(while loop)must do fscanf and print the result.
+4.by using bitwise operators.
+5.video filter (just modify the conditions).(fscanf after while loop).

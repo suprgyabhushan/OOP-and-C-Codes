@@ -1,0 +1,20 @@
+To build the executable, first go into the folder 
+
+struct    
+
+To build the executable, then run the command 
+
+    make 
+
+To uninstall the player software, run the command
+
+	make clean
+
+To run the player software with the configuration files, run the
+following commands:
+	
+	./public
+
+Then follow the instruction to add a parent or a child
+
+To exit the program, you can either do CONTROL + C or close the GUI.

@@ -1,0 +1,175 @@
+plugins.cc:94 PLAYERPATH: /usr/local/lib
+
+plugins.cc:114 trying to load /usr/local/lib/libstageplugin...
+plugins.cc:118 success
+plugins.cc:190 invoking player_driver_init()...
+plugins.cc:208 success
+playertcp.cc:249 accepted client 0 on port 6665, fd 10
+playertcp.cc:521 write() failed: Broken pipe
+playertcp.cc:681 warning : failed to write to client 0
+
+playertcp.cc:319 closing connection to client 0 on port 6665
+plugins.cc:94 PLAYERPATH: /usr/local/lib
+
+plugins.cc:114 trying to load /usr/local/lib/libstageplugin...
+plugins.cc:118 success
+plugins.cc:190 invoking player_driver_init()...
+plugins.cc:208 success
+playertcp.cc:249 accepted client 0 on port 6665, fd 10
+playertcp.cc:521 write() failed: Broken pipe
+playertcp.cc:681 warning : failed to write to client 0
+
+playertcp.cc:319 closing connection to client 0 on port 6665
+plugins.cc:94 PLAYERPATH: /usr/local/lib
+
+plugins.cc:114 trying to load /usr/local/lib/libstageplugin...
+plugins.cc:118 success
+plugins.cc:190 invoking player_driver_init()...
+plugins.cc:208 success
+playertcp.cc:249 accepted client 0 on port 6665, fd 10
+playertcp.cc:389 warning : other error on client 0
+playertcp.cc:319 closing connection to client 0 on port 6665
+plugins.cc:94 PLAYERPATH: /research/playerstage/lib
+
+plugins.cc:114 trying to load /research/playerstage/lib/libstageplugin...
+plugins.cc:118 success
+plugins.cc:190 invoking player_driver_init()...
+plugins.cc:208 success
+playertcp.cc:252 accepted client 0 on port 6665, fd 10
+playertcp.cc:759 read() read zero bytes
+playertcp.cc:400 failed to read from client 0
+playertcp.cc:322 closing connection to client 0 on port 6665
+playertcp.cc:252 accepted client 0 on port 6665, fd 10
+playertcp.cc:759 read() read zero bytes
+playertcp.cc:400 failed to read from client 0
+playertcp.cc:322 closing connection to client 0 on port 6665
+playertcp.cc:252 accepted client 0 on port 6665, fd 10
+playertcp.cc:977 warning : skipping subscription to unknown device 5:0
+playertcp.cc:759 read() read zero bytes
+playertcp.cc:400 failed to read from client 0
+playertcp.cc:322 closing connection to client 0 on port 6665
+plugins.cc:94 PLAYERPATH: /research/playerstage/lib
+
+plugins.cc:114 trying to load /research/playerstage/lib/libstageplugin...
+plugins.cc:118 success
+plugins.cc:190 invoking player_driver_init()...
+plugins.cc:208 success
+configfile.cc:159 error   : unable to open world file everything.worlds : No such file or directory
+server.cc:144 error   : failed to load config file everything.worlds
+plugins.cc:94 PLAYERPATH: /research/playerstage/lib
+
+plugins.cc:114 trying to load /research/playerstage/lib/libstageplugin...
+plugins.cc:118 success
+plugins.cc:190 invoking player_driver_init()...
+plugins.cc:208 success
+plugins.cc:94 PLAYERPATH: /research/playerstage/lib
+
+plugins.cc:114 trying to load /research/playerstage/lib/libstageplugin...
+plugins.cc:118 success
+plugins.cc:190 invoking player_driver_init()...
+plugins.cc:208 success
+playertcp.cc:252 accepted client 0 on port 6665, fd 10
+playertcp.cc:759 read() read zero bytes
+playertcp.cc:400 failed to read from client 0
+playertcp.cc:322 closing connection to client 0 on port 6665
+playertcp.cc:252 accepted client 0 on port 6665, fd 10
+playertcp.cc:759 read() read zero bytes
+playertcp.cc:400 failed to read from client 0
+playertcp.cc:322 closing connection to client 0 on port 6665
+playertcp.cc:252 accepted client 0 on port 6665, fd 10
+playertcp.cc:322 closing connection to client 0 on port 6665
+plugins.cc:94 PLAYERPATH: /research/playerstage/lib
+
+plugins.cc:114 trying to load /research/playerstage/lib/libstageplugin...
+plugins.cc:118 success
+plugins.cc:190 invoking player_driver_init()...
+plugins.cc:208 success
+plugins.cc:94 PLAYERPATH: /research/playerstage/lib
+
+plugins.cc:114 trying to load /research/playerstage/lib/libstageplugin...
+plugins.cc:118 success
+plugins.cc:190 invoking player_driver_init()...
+plugins.cc:208 success
+plugins.cc:94 PLAYERPATH: /research/playerstage/lib
+
+plugins.cc:114 trying to load /research/playerstage/lib/libstageplugin...
+plugins.cc:118 success
+plugins.cc:190 invoking player_driver_init()...
+plugins.cc:208 success
+playertcp.cc:249 accepted client 0 on port 6665, fd 10
+playertcp.cc:521 write() failed: Broken pipe
+playertcp.cc:681 warning : failed to write to client 0
+
+playertcp.cc:319 closing connection to client 0 on port 6665
+playertcp.cc:249 accepted client 0 on port 6665, fd 10
+playertcp.cc:972 warning : skipping subscription to unknown device 5:0
+playertcp.cc:754 read() read zero bytes
+playertcp.cc:397 failed to read from client 0
+playertcp.cc:319 closing connection to client 0 on port 6665
+plugins.cc:94 PLAYERPATH: /research/playerstage/lib
+
+plugins.cc:114 trying to load /research/playerstage/lib/libstageplugin...
+plugins.cc:118 success
+plugins.cc:190 invoking player_driver_init()...
+plugins.cc:208 success
+configfile.cc:2103 error   : Initialization failed for driver "stage"
+server.cc:150 error   : failed to parse config file everything.cfg
+plugins.cc:94 PLAYERPATH: /research/playerstage/lib
+
+plugins.cc:114 trying to load /research/playerstage/lib/libstageplugin...
+plugins.cc:118 success
+plugins.cc:190 invoking player_driver_init()...
+plugins.cc:208 success
+playertcp.cc:249 accepted client 0 on port 6665, fd 16
+playertcp.cc:754 read() read zero bytes
+playertcp.cc:397 failed to read from client 0
+playertcp.cc:319 closing connection to client 0 on port 6665
+playertcp.cc:249 accepted client 0 on port 6665, fd 16
+playertcp.cc:754 read() read zero bytes
+playertcp.cc:397 failed to read from client 0
+playertcp.cc:319 closing connection to client 0 on port 6665
+playertcp.cc:249 accepted client 0 on port 6665, fd 16
+playertcp.cc:754 read() read zero bytes
+playertcp.cc:397 failed to read from client 0
+playertcp.cc:319 closing connection to client 0 on port 6665
+playertcp.cc:249 accepted client 0 on port 6665, fd 16
+playertcp.cc:521 write() failed: Broken pipe
+playertcp.cc:681 warning : failed to write to client 0
+
+playertcp.cc:319 closing connection to client 0 on port 6665
+playertcp.cc:249 accepted client 0 on port 6665, fd 16
+playertcp.cc:521 write() failed: Broken pipe
+playertcp.cc:681 warning : failed to write to client 0
+
+playertcp.cc:319 closing connection to client 0 on port 6665
+playertcp.cc:249 accepted client 0 on port 6665, fd 16
+playertcp.cc:754 read() read zero bytes
+playertcp.cc:397 failed to read from client 0
+playertcp.cc:319 closing connection to client 0 on port 6665
+playertcp.cc:249 accepted client 0 on port 6665, fd 16
+playertcp.cc:972 warning : skipping subscription to unknown device 40:0
+playertcp.cc:754 read() read zero bytes
+playertcp.cc:397 failed to read from client 0
+playertcp.cc:319 closing connection to client 0 on port 6665
+playertcp.cc:249 accepted client 0 on port 6665, fd 16
+playertcp.cc:521 write() failed: Broken pipe
+playertcp.cc:681 warning : failed to write to client 0
+
+playertcp.cc:319 closing connection to client 0 on port 6665
+plugins.cc:94 PLAYERPATH: /research/playerstage/lib
+
+plugins.cc:114 trying to load /research/playerstage/lib/libstageplugin...
+plugins.cc:118 success
+plugins.cc:190 invoking player_driver_init()...
+plugins.cc:208 success
+plugins.cc:94 PLAYERPATH: /research/playerstage/lib
+
+plugins.cc:114 trying to load /research/playerstage/lib/libstageplugin...
+plugins.cc:118 success
+plugins.cc:190 invoking player_driver_init()...
+plugins.cc:208 success
+playertcp.cc:249 accepted client 0 on port 6665, fd 16
+playertcp.cc:521 write() failed: Broken pipe
+playertcp.cc:681 warning : failed to write to client 0
+
+playertcp.cc:319 closing connection to client 0 on port 6665

@@ -1,0 +1,497 @@
+Suprgya.56@iiitb.org
+
+compiling...
+
+nothing to build
+
+testing results...
+
+-------Task1: Separate ------------------------------------
+
+
+---deduction of 5 pts if separate.c does not exists---------------
+
+
+executing cd separate;
+
+executing cat separate.c
+#include<stdio.h>
+#include<string.h>
+int main(int argc, char* argv[])
+{   
+    int i;
+    char test;	
+    FILE* vowel=fopen("vowel.dat","w");
+    FILE* consonant=fopen("consonant.dat","w");
+    	
+    for(i=1;i<argc;i++)
+    {
+        test=argv[i];
+     
+        if((test=="a") || (test=="e") || (test=="i") || (test=="o") || (test=="u"))
+        {
+            fprintf(consonant,"%c",test);
+        }
+        else 
+        {
+            fprintf(vowel,"%c",test);
+        
+    	}
+    }
+    fclose(vowel);
+    fclose(consonant);
+
+}        
+
+
+-------Compilation----------------------------------------
+
+---deduction of 5 pts if compilation fails
+
+
+executing gcc separate.c -o separate -lm
+separate.c: In function ‘main’:
+separate.c:12:13: warning: assignment makes integer from pointer without a cast [enabled by default]
+separate.c:14:17: warning: comparison between pointer and integer [enabled by default]
+separate.c:14:32: warning: comparison between pointer and integer [enabled by default]
+separate.c:14:47: warning: comparison between pointer and integer [enabled by default]
+separate.c:14:62: warning: comparison between pointer and integer [enabled by default]
+separate.c:14:77: warning: comparison between pointer and integer [enabled by default]
+
+
+
+-------Test case 1 ----------------------------------------------
+
+
+-------deduction of 2 pts if this fails------------------------
+
+
+
+executing ./separate a b c d e i o u  
+
+
+
+------Checking vowel.dat file------------------------------------
+
+
+executing cat vowel.dat
+��������
+
+deduct 2
+
+------Checking consonant.dat file------------------------------------
+
+executing cat consonant.dat
+
+
+
+------------Reference-------------------------------------------
+
+
+-------vowel.dat---------------------------------------------------
+a e i o u
+
+-------consonant.dat---------------------------------------------------
+b c d
+
+
+
+-------Test case 2 ----------------------------------------------
+
+
+-------deduction of 2 pts if this fails------------------------
+
+
+
+executing ./separate a b 
+
+
+
+------Checking vowel.dat file------------------------------------
+
+
+executing cat vowel.dat
+��
+
+
+------Checking consonant.dat file------------------------------------
+
+executing cat consonant.dat
+
+
+
+deduct 1
+
+------------Reference-------------------------------------------
+
+
+-------vowel.dat---------------------------------------------------
+a
+
+-------consonant.dat---------------------------------------------------
+b
+
+
+executing cd ..;
+
+-------Task2: complex -------------------------------------------
+
+
+---deduction of 5 pts if either of complex.c and util.c does not exists---
+
+
+------Checking main function------------------------------------------
+
+executing cd complex;
+
+executing cat complex.c
+#include<stdio.h>
+#include<math.h>
+#include<stdlib.h>
+void compute(float,float,float,float *,float *);
+int main(int argc,char *argv[])
+	{float a,b,c,real,complex;
+	real=0.00;
+	complex=0.00;
+	a=atof(argv[1]);
+	b=atof(argv[2]);
+	c=atof(argv[3]);
+	
+	
+	
+	compute(a,b,c,&real,&complex);
+	if (complex>0.00)
+	{	
+	printf(" %3.2f + i%3.2f \n",real,complex);
+	}
+	else if (complex==0.00)
+	{
+	printf(" %3.2f  \n",real);
+	}
+	else
+	{
+	printf(" %3.2f - i%3.2f \n",real,complex);
+	}
+	return 0;
+	}
+
+
+------Checking compute function------------------------------------------
+
+
+executing cat util.c
+#include<stdio.h>
+#include<math.h>
+void compute(float a,float b,float c,float *real,float *complex)
+	{
+	float x,y,z;
+	x=expf(a);
+        y=cosf(b*c);
+        z=sinf(b*c);
+	*real=(x*y);
+	*complex=(x*z);
+	}	
+
+
+-------Compilation----------------------------------------
+
+---deduction of 5 pts if compilation fails
+
+
+executing gcc complex.c util.c -o complex -lm
+
+
+
+-------Test case 1 ----------------------------------------------
+
+-------deduction of 2 pts if this fails------------------------
+
+
+
+executing ./complex 1 1 1
+ 1.47 + i2.29 
+
+
+
+------------References-------------------------------------------
+
+
+1.47 + i2.29
+
+
+
+
+
+-------Test case 2 ----------------------------------------------
+
+-------deduction of 2 pts if this fails------------------------
+
+
+
+executing ./complex 0 0 0
+ 1.00  
+
+
+
+------------References-------------------------------------------
+
+
+1.00
+
+executing cd ..;
+
+-------Task3: Bus -----------------------------------------
+
+
+---deduction of 5 pts if journey.c does not exists-----------------
+
+
+------Checking bus.c file------------------------------------------
+
+executing cd bus;
+
+executing cat bus.c
+#include<stdio.h>
+int main(int argc,char*argv[])
+{
+    FILE*input=fopen(argv[1],"r");
+    int x=getc(input),count=0;
+    while(x!=EOF)
+
+        {
+
+             x=getc(input);
+
+            if(x==10)
+                count++;
+            }
+    fclose(input);
+    FILE*input1=fopen(argv[2],"r");
+    int x=getc(input1),count=0;
+    while(x!=EOF)
+
+        {
+
+             x=getc(input1);
+
+            if(x==10)
+                count++;
+            }
+     fclose(input1);	
+    input= fopen(argv[1],"r");
+    int i=1;float cost;char name[120];
+    x=getc(input);
+    input1= fopen(argv[2],"r");
+    int j=1;char sname[120];char fname[120]
+    x=getc(input1);
+    while(i!=(count+1))
+    {
+        fscanf(input,"%s",name);
+        fscanf(input,"%f",&cost);
+         while(j!=(count+1))
+         {
+        fscanf(input1,"%s",sname);
+        fscanf(input1,"%s",fcost);
+        x=getc(input);
+        i=i+1;
+    }
+    printf("The total number of gallons consumed by your travel suggested in above test case is:%0.2f\n",result);
+}
+
+
+-------Compilation----------------------------------------
+
+---deduction of 5 pts if compilation fails
+
+
+executing gcc bus.c -o bus -lm
+bus.c: In function ‘main’:
+bus.c:17:9: error: redefinition of ‘x’
+bus.c:5:9: note: previous definition of ‘x’ was here
+bus.c:17:24: error: redefinition of ‘count’
+bus.c:5:23: note: previous definition of ‘count’ was here
+bus.c:33:5: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘x’
+bus.c:41:28: error: ‘fcost’ undeclared (first use in this function)
+bus.c:41:28: note: each undeclared identifier is reported only once for each function it appears in
+bus.c:45:106: error: ‘result’ undeclared (first use in this function)
+bus.c:46:1: error: expected declaration or statement at end of input
+
+deduct 3
+
+
+-------Test case 1 ----------------------------------------------
+
+-------deduction of 2 pts if this fails------------------------
+
+
+-------mycost.dat contains-----------------------------------------
+
+executing cat ../../mycost.dat
+corporation 10.00
+lalbagh 17.50
+btm 20.00
+elcity 24.00
+
+-------myjourney.dat contains-----------------------------------------
+
+executing cat ../../myjourney.dat
+corporation btm 
+
+executing ./bus ../../mycost.dat ../../myjourney.dat
+./go2: line 216: ./bus: No such file or directory
+
+
+------------References-------------------------------------------
+
+
+10.00
+
+
+
+-------Test case 2 ----------------------------------------------
+
+
+-------deduction of 2 pts if this fails------------------------
+
+
+-------mycost.dat contains-----------------------------------------
+
+executing cat ../../mycost.dat
+corporation 10.00
+lalbagh 17.50
+btm 20.00
+elcity 24.00
+
+-------myjourney1.dat contains-----------------------------------------
+
+executing cat ../../myjourney1.dat
+lalbagh elcity
+
+executing ./bus ../../mycost.dat ../../myjourney1.dat
+./go2: line 243: ./bus: No such file or directory
+
+
+------------References-------------------------------------------
+
+
+6.50
+
+
+executing cd ..;
+
+-------Task4: mDonation-----------------------------------------
+
+
+---deduction of 5 pts if donation.c does not exists-----------------
+
+
+------Checking donation.c file------------------------------------------
+
+executing cd donation;
+
+executing cat donation.c
+#include<stdio.h>
+int main(int argc,char *argv[])
+{
+    int x=atoi(argv[1]);
+ 
+ 	printf("Following donation were made:\n");
+if (x&0x1f)
+
+	{
+	printf("Rs. 1 \n");
+	}
+    x=x>>5;    
+    
+    
+if (x&0xf)
+
+	{
+	printf("Rs. 2 \n");
+	}
+    x=x>>4;
+if (x&7)
+
+	{
+	printf("Rs. 5 \n");
+	}
+    x=x>>3;
+
+  if (x&0x1f)
+
+	{
+	printf("Rs. 10 \n");
+	}
+    x=x>>5;  
+   
+    return 0;
+}
+
+
+-------Compilation----------------------------------------
+
+---deduction of 5 pts if compilation fails
+
+
+executing gcc donation.c -o donation -lm
+
+
+
+-------Test case 1 ----------------------------------------------
+
+-------deduction of 2 pts if this fails------------------------
+
+
+
+
+executing ./donation 4641
+Following donation were made:
+Rs. 1 
+Rs. 2 
+Rs. 5 
+Rs. 10 
+
+
+deduct 1 ; order is descending as suggested in the test case.
+
+------------References-------------------------------------------
+
+
+Following donation were made:
+Rs. 10
+Rs. 5
+Rs. 2
+Rs. 1
+
+
+-------Test case 2 ----------------------------------------------
+
+-------deduction of 2 pts if this fails------------------------
+
+
+executing ./donation 4096
+Following donation were made:
+Rs. 10 
+
+
+
+------------References-------------------------------------------
+
+
+Following donation were made:
+Rs. 10
+
+
+
+
+
+
+Notes:
+
+     See notes and deductions above (marked with ###)
+
+     Check for deductions in points to get the overall score
+
+
+
+Overall Score: 13/20

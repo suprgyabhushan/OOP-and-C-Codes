@@ -1,0 +1,12 @@
+FILE *getfilename(char *);
+int Lines(char *);
+int Count(int);
+void AllLines(char *,int);
+int Row(char *);
+int Col(char *);
+void TwoD(char *,int,int);
+int NeighbourCount(char **,int,int,int,int);
+void LiveCount(int **,char **,int,int);
+void TwoDn(int **,char **,int,int,int);
+void Generations(int **,char **,int,int,int);
+void NextGeneration(char *,int,int,int);

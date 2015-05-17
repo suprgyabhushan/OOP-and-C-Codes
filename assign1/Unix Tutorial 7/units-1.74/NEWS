@@ -1,0 +1,48 @@
+GNU units NEWS - User visible changes.
+Copyright (C) 1996, 1997, 1999 Free Software Foundation, Inc.
+
+Version 1.6x, 1.7x
+
+This version is an alpha testing release.
+
+* Rewritten parser supports () for grouping, supports noninteger
+  powers of numbers (e.g. 3^0.25), supports a bunch of functions (log,
+  ln, log2, sin, cos, tan, exp) which can have units as arguments but
+  they must reduce to dimensionless (e.g. log(watts/horsepower)),
+  supports sqrt(unit) and cuberoot(unit), higher roots as unit^(1|4).
+
+* functions can be defined in units.dat along with their inverse, and
+  conversion to a function by specifying it's name alone as the "want"
+  item. 
+
+* tables with linear interpolation
+
+
+Version 1.55 - July 30, 1999
+
+* Added over 600 new units and corrected errors in the units data file.
+* Minor bug fix affecting unit name completion.
+
+
+Version 1.54 - July 15, 1997
+
+* Switched order of prefix and plural handling (plurals are now done first)
+* Added reciprocal unit conversion and --strict (-s) option
+* Fixed some erroneous unit definitions, added currency codes and other units
+* Improved Makefile (exec-prefix, program-transform-name supported)
+* Bug fixes
+
+
+Version 1.53 - Jan 13, 1997
+
+* Added units containing ISO 8859-1 characters
+* Bug fixes 
+
+
+Version 1.52 - Dec 18, 1996
+
+* Sums of conformable units 
+* Printing of unit definitions 
+* Unitname completion with readline
+* Added --verbose (-v) option and moved --version to -V
+* Improved portability, old style C support, improved Makefile

@@ -1,0 +1,4 @@
+life : life.c
+	gcc life.c util.c util.h -o life
+clean :
+	rm life

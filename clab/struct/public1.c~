@@ -1,0 +1,146 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include "node.h"
+
+void printing_child(node *ppar, int indent)
+{
+	node *pchl;
+	int i = 0;
+	while(ppar != NULL)
+	{
+		printf("\n");
+		for(i=0;i<indent;++i)
+			printf("\t");
+		printf("Parent : ");
+		ppar -> display(ppar);
+		pchl = ppar->child;
+		while(pchl != NULL)
+		{
+			printf("\n");
+			for(i=0;i<indent;++i)
+				printf("\t");
+			printf("Child : ");
+			node *temp;
+			temp = pchl;
+			if(temp->next != NULL)
+				printing_child(temp,indent+1);
+			if(temp->child != NULL)
+				temp->display(temp);
+			pchl = pchl -> child;
+		}
+		ppar = ppar->next;
+	}
+}
+
+node *get_input()
+{
+		node *p;
+		int type;
+		printf("Enter the type :   1 :Integer\t 2 :Double\t 3 :String \t ");
+		fscanf(stdin,"%d",&type);
+		if(type == 1)
+		{
+			int num;
+			printf("Enter an integer :  ");
+			fscanf(stdin,"%d",&num);
+			p = newIntegerNode(num);
+		}
+		else if(type == 2)
+		{
+			float num;
+			printf("Enter a real number :  ");
+			fscanf(stdin,"%f",&num);
+			p = newRealNode(num);
+		}
+		else if(type == 3)
+		{
+			char line[50];
+			printf("Enter a line in less than 50 words :  ");
+			fscanf(stdin,"%s",line,50);
+			p = newStringNode(line);
+		}
+		else
+			return NULL;
+		p->child = NULL;
+	return p;		
+}
+
+node *main_line(int indent)
+{
+	node *ptr, *temp1, *START;
+	START = NULL;
+	int cont, opt, i;
+	do
+	{
+		printf("\n\n");
+		for(i=0;i<indent;++i)
+			printf("\t");
+		printf("PARENT LINE : ");
+		ptr = get_input();
+		printf("\n");
+		
+		if(START == NULL)
+		 	START = ptr;//To run for the first time only
+		else
+		 	temp1 -> next = ptr;
+		
+		node *temp = ptr;
+		
+		for(i=0;i<indent;++i)
+			printf("\t");
+		printf("Does this parent have a child ? [y/n] <=> [1/0] :  ");
+		fscanf(stdin,"%d",&opt);
+		
+		while(opt == 1)
+		{
+			
+			for(i=0;i<indent;++i)
+				printf("\t");
+			printf("Is the child inturn a new parent line ? [y/n] <=> [1/0] :  ");
+			fscanf(stdin,"%d",&opt);
+			
+			if(opt == 1)
+			{
+				node *p;
+				p = main_line(indent+1);
+				temp->child = p;
+			}
+			else
+			{
+				printf("\n");
+				for(i=0;i<indent;++i)
+					printf("\t");
+				printf("=> Continuing with the child line : ");
+				temp->child = get_input();
+			}
+			
+			temp = temp->child;
+			
+			for(i=0;i<indent;++i)
+				printf("\t");
+			printf("Does the parent have another child ? [y/n] <=> [1/0] :  ");
+			fscanf(stdin,"%d",&opt);
+		
+		}
+		for(i=0;i<indent;++i)
+			printf("\t");
+		printf("Do you want to continue with the current parent line [y/n] <=> [1/0] : ");
+		fscanf(stdin,"%d",&cont);
+		
+		temp1 = ptr;
+		temp1->next = NULL;	
+	
+	}while(cont == 1);
+	return START;	
+}
+
+void main()
+{
+	node *START;
+	START = main_line(0);
+	printf("\n***PRINTING LINKEDLIST***\n");
+	print_nodes(START,0);	
+	return;	
+}
+
+

@@ -1,0 +1,11 @@
+#!/bin/bash
+PLAYER=aplay
+if [ "x$1" = "x" ] ; then
+    rra2wav | $PLAYER -t wav - ;
+else
+    for s in "$@"
+        do
+	echo "$s"
+        rra2wav "$s" | $PLAYER -t wav - ;
+	done
+fi

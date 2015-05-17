@@ -1,0 +1,79 @@
+This file contains any messages produced by compilers while
+running configure, to aid debugging if configure makes a mistake.
+
+configure:549: checking for gcc
+configure:626: checking whether the C compiler (gcc  ) works
+configure:640: gcc -o conftest    conftest.c  1>&5
+configure:660: checking whether the C compiler (gcc  ) is a cross-compiler
+configure:665: checking whether we are using GNU C
+configure:674: gcc -E conftest.c
+configure:689: checking whether gcc accepts -g
+configure:718: checking for gcc option to accept ANSI C
+configure:752: gcc  -c -g -O2  conftest.c 1>&5
+configure:772: checking how to run the C preprocessor
+configure:793: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:836: checking for function prototypes
+configure:991: checking for working const
+configure:1045: gcc -c -g -O2  conftest.c 1>&5
+configure:1095: checking for a BSD compatible install
+configure:1147: checking for tparm in -lncurses
+configure:1166: gcc -o conftest -g -O2   conftest.c -lncurses   1>&5
+/usr/bin/ld: cannot find -lncurses
+collect2: error: ld returned 1 exit status
+configure: failed program was:
+#line 1155 "configure"
+#include "confdefs.h"
+/* Override any gcc2 internal prototype to avoid an error.  */
+/* We use char because int might match the return type of a gcc2
+    builtin and then its argument prototype would still apply.  */
+char tparm();
+
+int main() {
+tparm()
+; return 0; }
+configure:1185: checking for tgetent in -ltermcap
+configure:1204: gcc -o conftest -g -O2   conftest.c -ltermcap   1>&5
+/usr/bin/ld: cannot find -ltermcap
+collect2: error: ld returned 1 exit status
+configure: failed program was:
+#line 1193 "configure"
+#include "confdefs.h"
+/* Override any gcc2 internal prototype to avoid an error.  */
+/* We use char because int might match the return type of a gcc2
+    builtin and then its argument prototype would still apply.  */
+char tgetent();
+
+int main() {
+tgetent()
+; return 0; }
+configure:1229: checking for readline in -lreadline
+configure:1248: gcc -o conftest -g -O2   conftest.c -lreadline    1>&5
+/usr/bin/ld: cannot find -lreadline
+collect2: error: ld returned 1 exit status
+configure: failed program was:
+#line 1237 "configure"
+#include "confdefs.h"
+/* Override any gcc2 internal prototype to avoid an error.  */
+/* We use char because int might match the return type of a gcc2
+    builtin and then its argument prototype would still apply.  */
+char readline();
+
+int main() {
+readline()
+; return 0; }
+configure:1304: checking for string.h
+configure:1314: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:1338: checking for stdlib.h
+configure:1348: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:1372: checking for strchr
+configure:1400: gcc -o conftest -g -O2   conftest.c  1>&5
+configure:1384:6: warning: conflicting types for built-in function 'strchr' [enabled by default]
+ char strchr();
+      ^
+configure:1421: checking for strspn
+configure:1449: gcc -o conftest -g -O2   conftest.c  1>&5
+configure:1433:6: warning: conflicting types for built-in function 'strspn' [enabled by default]
+ char strspn();
+      ^
+configure:1470: checking for strtok
+configure:1498: gcc -o conftest -g -O2   conftest.c  1>&5
