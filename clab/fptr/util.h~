@@ -1,2 +1,0 @@
-int encode(int,char,int);
-int decode(int);
