@@ -1,4 +1,0 @@
-{			
-			putchar(ch);
-			ch = getc(music);
-			}
