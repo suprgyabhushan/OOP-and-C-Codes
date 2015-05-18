@@ -1,5 +1,0 @@
-b=actorname;
-        ToLower(b);
-a=samemoviesactor;
-    ToLower(a);
-    
