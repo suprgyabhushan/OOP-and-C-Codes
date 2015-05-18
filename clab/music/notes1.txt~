@@ -1,5 +1,0 @@
-if (!(pnt = strchr(buffer, '\n'))) {
-        printf("No end-of-line detected in line %d. Too long for buffer.\n", line);
-        exit(0);
-        }
-    
