@@ -1,0 +1,23 @@
+1.Introduction
+
+To make a Phone Database and then respond to a set of queries.
+
+2.Compilation and Execution
+
+i) To compile give the command on terminal 'make all'
+ii) To execute give the command on terminal './a.out'
+
+3.Code Analysis
+
+i) First of all , the initial phone database will be printed.
+ii) Then the program will wait for the user to input a number from 1 to 7 to respond to queries
+iii) Queries are :- 
+   "1 -> Call and Receive "
+   "2 -> Add or Remove a Sim "
+   "3 -> Country and Manufacture of all Phones in the network "
+   "4 -> Wireless Technology of 'Q' Manufacture "
+   "5 -> Phone Numbers of LTE "
+   "6 -> Number of LTE, GSM, WCDMA, GPRS Phones "
+   "7 -> Print the Phone database "
+   "0 -> Exit "   
+iv) To exit the program user must input '0'.   

@@ -1,0 +1,14 @@
+1) Analysis of code :
+
+i) Header Files :
+
+a) Point Class - Contains info about point and Distance Sort and Lexic Sort function 
+
+ii) Main File :
+
+a) Calling of functions to calculate queries.
+
+2) Execution of code :
+
+i) On command terminal type make all to compile.
+ii) To execute , type ./a.out. 
