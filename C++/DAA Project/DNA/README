@@ -1,0 +1,67 @@
+DAA Project Documentation
+
+Please refer to the DNA problem in the problem set given.
+
+1. Pseudo Code of the Algorithm 
+
+int counter;
+int length;
+int R;
+int K;
+const char poss[4] = {'A','C','G','T'};
+new Nucleotide  array;
+counter=0;
+
+int getSequence(int i,int order)
+{
+	int f;
+	if (order>K)
+		go to parent; // condition violated
+	else if(i==length) // found a valid sequence
+	{
+		counter++;
+		if(counter==R) // found the lexicographically Rth valid sequence
+			PrintDNA();
+		else
+			go to parent;
+	}
+	else if(array[i].flag==0) // current index contains the known nucleotide
+	{
+		update the order and go to child;
+	}
+	else // current index contains the unknown nucleotide
+	{
+		for(j in poss)
+		{
+			set current index value j;
+			update order and go to child;
+		}
+	}
+	print "No possible sequence"
+}
+
+
+2. Data Structures Used
+
+i) We used data structure - a form of Trie - Structure - which really shines in application domains with specific features, like with words. And as you may have guessed, a trie is indeed a tree. But, contrary to most binary-trees that you’d use for sorting strings, those that would store entire words in their nodes, each node of a trie holds a single character and has a maximum fan-out equal to the length of the DNA sequence in this case. Therefore the nodes of the trie have a maximum fan-out of 4 due to being four nucleotides. And, while a balanced binary tree has log2(n) depth, the maximum depth of the trie is equal to the maximum length of a word (Again, wider but shorter), in this case 50,000.
+ii) We also implemented the Dynamic Programming problem but storing was a problem so we dropped that method.
+ii) Time Complexity - O(nR) where R = sequence number of the DNA sequence.
+iii) Space Complexity - O(length of the DNA sequence = length) or O(n).
+
+
+3. Compiling Instructions
+
+i) Just follow the makefile.
+ii) After executing the a.out file, enter the input values of R, K, Length of the DNA Sequence and the DNA sequence according to the question.
+
+
+4. Defects in Code
+
+i) The code will not work for value of R=10^11.
+ii) The code is taking some 6-7 seconds in real time for Length of the DNA seq = 50000 and K <=4. 
+
+5. Individual Contributions 	
+
+i) Lakshay Jindal - Helping in the deduction of Algorithm, Coding of the getSequence() function, Making of the documentation.
+ii) Rahul Rachuri - Helping in the deduction of the algorithm, Coding the getWeight() and PrintArray() function, Making of the documentation.
+iii) Suprgya Bhushan - Helping in the deduction of the algorithm, Coding of the Main function, Making of the documentation. 
